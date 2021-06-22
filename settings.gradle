@@ -1,3 +1,4 @@
 include ':lesson2'
+include ':lesson3'
 include ':lesson1'
 rootProject.name = "AndroidAcademy"
