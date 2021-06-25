@@ -12,14 +12,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val textView: TextView = findViewById(R.id.first_activity_text_view)
+        supportFragmentManager.beginTransaction()
+                .add(R.id.fv_container,FragmentMoviesDetails())
+                .commit()
 
-        textView.setOnClickListener{moveToNextScreen()}
     }
 
-    private fun moveToNextScreen() {
-        val intent = Intent(this, MovieDetailsActivity::class.java)
 
-        startActivity(intent)
-    }
 }
