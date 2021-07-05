@@ -1,47 +1,49 @@
 package com.example.lesson4
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
-
 import androidx.recyclerview.widget.RecyclerView
 
-class ActorListAdapter: ListAdapter<ActorData, ActorListAdapter.ViewHolder>(DiffCallback()) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.view_holder_actor, parent, false)
-        )
+class ActorsAdapter(context: Context,
+                    var actor: List<Actor>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private val inflater: LayoutInflater = LayoutInflater.from(context)
+
+    private var actors: List<Actor> = listOf()
+
+    fun setList(newActors: List<Actor>) {
+        this.actors = newActors
+        notifyDataSetChanged()
     }
 
+    //сколько элементов списке
+    override fun getItemCount(): Int = actors.size
+    //по позиции возвращаем данные об актере
+    private fun getItem(position: Int): Actor = actors[position]
 
-    override fun onBindViewHolder(holder: ActorListAdapter.ViewHolder, position: Int) {
-        val item = getItem(position)
-        holder.bind(item)
+    //создаем холдер передавая вьюшку из ресурса
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderActor {
+        return ViewHolderActor(inflater.inflate(R.layout.view_holder_actor, parent, false))
+    }
+    //сэттим данные о вьюхолдер
+    override fun onBindViewHolder(holder: ViewHolderActor, position: Int) {
+        holder.bind(getItem(position))
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        private val actorImage: ImageView = itemView.findViewById(R.id.iv_downey)
-        private val actorName: TextView = itemView.findViewById(R.id.tv_downey)
-
-        fun bind(item: ActorData) {
-            actorImage.setImageResource(item.image)
-            actorName.text = item.name
+     class ViewHolderActor(v: View) : RecyclerView.ViewHolder(v) {
+        //Do once
+        private val image: ImageView = itemView.findViewById(R.id.iv_downey)
+        private val genres: TextView = itemView.findViewById(R.id.tv_downey)
+        //Do everytime
+        fun bind(actor: Actor) {
+            genres.text = actor.name
+            image.setImageResource(actor.image)
         }
     }
-    class DiffCallback : DiffUtil.ItemCallback<ActorData>() {
-        override fun areItemsTheSame(oldItem: ActorData, newItem: ActorData): Boolean {
-            return oldItem.id == newItem.id
-        }
 
-        override fun areContentsTheSame(oldItem: ActorData, newItem: ActorData): Boolean {
-            return oldItem == newItem
-        }
-    }
+
 }
-
