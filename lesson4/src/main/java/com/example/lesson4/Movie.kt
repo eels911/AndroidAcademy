@@ -1,5 +1,7 @@
 package com.example.lesson4
 
+import java.io.Serializable
+
 data class Movie(
     val name: String,
     val age: String,
@@ -9,4 +11,4 @@ data class Movie(
     val genres: String,
     val duration: Int,
     val isFavorite: Boolean,
-    val image: Int)
+    val image: Int): Serializable

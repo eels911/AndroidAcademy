@@ -8,8 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class ActorsAdapter(context: Context,
-                    var actor: List<Actor>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ActorListAdapter(context: Context) : RecyclerView.Adapter<ActorListAdapter.ViewHolderActor>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
 
@@ -27,17 +26,17 @@ class ActorsAdapter(context: Context,
 
     //создаем холдер передавая вьюшку из ресурса
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderActor {
-        return ViewHolderActor(inflater.inflate(R.layout.view_holder_actor, parent, false))
+        return ViewHolderActor(inflater.inflate(R.layout.item_actor, parent, false))
     }
     //сэттим данные о вьюхолдер
     override fun onBindViewHolder(holder: ViewHolderActor, position: Int) {
         holder.bind(getItem(position))
     }
 
-     class ViewHolderActor(v: View) : RecyclerView.ViewHolder(v) {
+    inner class ViewHolderActor(v: View) : RecyclerView.ViewHolder(v) {
         //Do once
-        private val image: ImageView = itemView.findViewById(R.id.iv_downey)
-        private val genres: TextView = itemView.findViewById(R.id.tv_downey)
+        private val image: ImageView = itemView.findViewById(R.id.iv_actor)
+        private val genres: TextView = itemView.findViewById(R.id.tv_actor_name)
         //Do everytime
         fun bind(actor: Actor) {
             genres.text = actor.name
@@ -47,3 +46,5 @@ class ActorsAdapter(context: Context,
 
 
 }
+
+

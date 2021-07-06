@@ -14,7 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/view_holder_movie">
+        tools:listitem="@layout/item_movie">
 
     </androidx.recyclerview.widget.RecyclerView>
 

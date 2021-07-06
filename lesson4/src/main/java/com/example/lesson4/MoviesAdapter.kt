@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
 class MoviesAdapter(
@@ -21,7 +22,7 @@ class MoviesAdapter(
     private fun getItem(position: Int): Movie = movies[position]
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderMovie {
-        return ViewHolderMovie(inflater.inflate(R.layout.view_holder_movie,parent, false))
+        return ViewHolderMovie(inflater.inflate(R.layout.item_movie,parent, false))
     }
     override fun onBindViewHolder(holder: ViewHolderMovie, position: Int) {
         holder.bind(getItem(position))
@@ -29,17 +30,47 @@ class MoviesAdapter(
 
     override fun getItemCount(): Int = movies.size
 
-    class ViewHolderMovie(v : View) : RecyclerView.ViewHolder(v), View.OnClickListener {
-        private val image: ImageView = itemView.findViewById(R.id.iv_movie_1_list)
-        private val genres: TextView = itemView.findViewById(R.id.tv_genre)
-        private val name: TextView = itemView.findViewById(R.id.tv_film_name)
-        private val age: TextView = itemView.findViewById(R.id.tv_age)
-        private val duration: TextView = itemView.findViewById(R.id.tv_duration)
-        private val numReviews: TextView = itemView.findViewById(R.id.tv_num_reviews)
+   inner class ViewHolderMovie(v : View) : RecyclerView.ViewHolder(v), View.OnClickListener {
+        private val image: ImageView = itemView.findViewById(R.id.iv_banner)
+        private val genres: TextView = itemView.findViewById(R.id.tv_film_desc)
+        private val name: TextView = itemView.findViewById(R.id.tv_film_name_text)
+        private val age: TextView = itemView.findViewById(R.id.tv_film_number)
+        private val duration: TextView = itemView.findViewById(R.id.tv_film_time_text)
+        private val numReviews: TextView = itemView.findViewById(R.id.tv_film_time_text)
         private val rating: RatingBar = itemView.findViewById(R.id.rating)
-        private val favorite: ImageView = itemView.findViewById(R.id.iv_like)}
+        private val favorite: ImageView = itemView.findViewById(R.id.iv_favorite_icon)
+
+
+        fun bind(movie: Movie) {
+            genres.text = movie.genres
+            name.text = movie.name
+            age.text = movie.age
+            duration.text = movie.duration.toString().plus(" MIN")
+            numReviews.text = movie.numReviews.toString().plus(" REVIEWS")
+            rating.rating = movie.rating
+            favorite.setColorFilter(
+                if (movie.isFavorite) {
+                    ContextCompat.getColor(context ,R.color.pink)
+                } else {
+                    ContextCompat.getColor(context ,R.color.white)
+                }
+            )
+            image.setImageResource(movie.image)
+
+        }
+
+        override fun onClick(v: View?) {
+            val pos = adapterPosition
+
+            if (pos != RecyclerView.NO_POSITION) {
+                listener.onClickMovie(getItem(pos))
+            }
+        }
+    }
 
     interface OnMovieListener {
         fun onClickMovie(movie: Movie)
     }
 }
+
+

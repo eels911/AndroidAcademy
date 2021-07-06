@@ -18,8 +18,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun routeToMoviesList() {
         supportFragmentManager.beginTransaction()
-                .replace(R.id.fv_container, FragmentMoviesList())
-                .addToBackStack(null)
+                .add(R.id.main_container, FragmentMoviesList())
                 .commit()
     }
 

@@ -24,7 +24,7 @@ class FragmentMoviesList : Fragment(R.layout.fragment_movies_list) {
 
         override fun onClickMovie(movie: Movie) {
             requireActivity().supportFragmentManager.beginTransaction()
-                .add(R.id.fv_container, FragmentMoviesDetails(movie))
+                .add(R.id.main, FragmentMoviesDetails(movie))
                 .addToBackStack(null)
                 .commit()
         }
