@@ -1,6 +1,7 @@
 package com.example.lesson4
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,6 +41,9 @@ class MoviesAdapter(
         private val rating: RatingBar = itemView.findViewById(R.id.rating)
         private val favorite: ImageView = itemView.findViewById(R.id.iv_favorite_icon)
 
+       init {
+           itemView.setOnClickListener(this)
+       }
 
         fun bind(movie: Movie) {
             genres.text = movie.genres
@@ -61,6 +65,7 @@ class MoviesAdapter(
 
         override fun onClick(v: View?) {
             val pos = adapterPosition
+            Log.d("---------","Click")
 
             if (pos != RecyclerView.NO_POSITION) {
                 listener.onClickMovie(getItem(pos))

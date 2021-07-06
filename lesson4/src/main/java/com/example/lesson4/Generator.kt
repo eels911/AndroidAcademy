@@ -6,22 +6,22 @@ fun generateActors(): List<Actor> {
 
     val ironMan = Actor(
         "Robert Downey Jr.",
-        R.drawable.downey
+        R.drawable.img_movie_cast_1
     )
 
     val captainAmerica = Actor(
         "Chris Evans",
-        R.drawable.evans
+        R.drawable.img_movie_cast_2
     )
 
     val hulk = Actor(
         "Mark Ruffalo",
-        R.drawable.ruffalo
+        R.drawable.img_movie_cast_3
     )
 
     val thor = Actor(
         "Chris Hemsworth",
-        R.drawable.hemsworth
+        R.drawable.img_movie_cast_4
     )
 
     return listOf(ironMan, captainAmerica, hulk, thor)
