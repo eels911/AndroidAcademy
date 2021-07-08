@@ -14,6 +14,8 @@ class ActorListAdapter(context: Context) : RecyclerView.Adapter<ActorListAdapter
 
     private var actors: List<Actor> = listOf()
 
+
+
     fun setList(newActors: List<Actor>) {
         this.actors = newActors
         notifyDataSetChanged()
@@ -26,7 +28,8 @@ class ActorListAdapter(context: Context) : RecyclerView.Adapter<ActorListAdapter
 
     //создаем холдер передавая вьюшку из ресурса
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderActor {
-        return ViewHolderActor(inflater.inflate(R.layout.item_actor, parent, false))
+        val itemLayout=inflater.inflate(R.layout.item_actor, parent, false)
+        return ViewHolderActor(itemLayout)
     }
     //сэттим данные о вьюхолдер
     override fun onBindViewHolder(holder: ViewHolderActor, position: Int) {
@@ -43,8 +46,6 @@ class ActorListAdapter(context: Context) : RecyclerView.Adapter<ActorListAdapter
             image.setImageResource(actor.image)
         }
     }
-
-
 }
 
 

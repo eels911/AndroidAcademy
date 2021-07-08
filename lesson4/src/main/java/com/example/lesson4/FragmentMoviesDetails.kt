@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 
-class FragmentMoviesDetails (private var movie: Movie) : Fragment(R.layout.fragment_movies_details) {
+class FragmentMoviesDetails() : Fragment(R.layout.fragment_movies_details) {
     private val tvAge: TextView by lazy { requireView().findViewById<TextView>(R.id.tv_back) }
     private val tvFilm: TextView by lazy { requireView().findViewById<TextView>(R.id.tv_movie_name) }
     private val tvGenre: TextView by lazy { requireView().findViewById<TextView>(R.id.tv_movie_tags) }
@@ -37,7 +37,16 @@ class FragmentMoviesDetails (private var movie: Movie) : Fragment(R.layout.fragm
         tvBack.setOnClickListener {
             requireActivity().onBackPressed()
         }
-
         rvActors.adapter = actorsAdapter
+        val movie = arguments?.getSerializable(EXTRA_MOVIE_DETAIL) as? Movie
+        movie?.run {
+            tvAge.text = age
+            tvFilm.text = name
+            tvGenre.text = genres
+            tvNumReviews.text = numReviews.toString()
+            tvStoryLne.text=storyLine
+
+        }
+
     }
 }

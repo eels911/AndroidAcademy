@@ -7,15 +7,17 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class FragmentMoviesList : Fragment(R.layout.fragment_movies_list) {
+
     private val moviesAdapter: MoviesAdapter by lazy {
-        MoviesAdapter(requireContext(), generateMovies(requireContext()), movieDetails)
+        MoviesAdapter(requireContext(), movieDetails).apply {
+            update(generateMovies(requireContext()))
+        }
     }
 
 
     private val rvMovies: RecyclerView by lazy {
         requireView().findViewById<RecyclerView>(R.id.rv_movies).apply {
             layoutManager = GridLayoutManager(context, 2)
-
         }
     }
 
@@ -23,15 +25,22 @@ class FragmentMoviesList : Fragment(R.layout.fragment_movies_list) {
     private val movieDetails = object : MoviesAdapter.OnMovieListener {
 
         override fun onClickMovie(movie: Movie) {
+            val fragment = FragmentMoviesDetails()
+            fragment.arguments = Bundle().apply {
+                putSerializable(EXTRA_MOVIE_DETAIL,movie)
+            }
             requireActivity().supportFragmentManager.beginTransaction()
-                .add(R.id.main, FragmentMoviesDetails(movie))
+                .add(R.id.main,fragment)
                 .addToBackStack(null)
                 .commit()
         }
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         rvMovies.adapter = moviesAdapter
     }
+
+
 }
 
