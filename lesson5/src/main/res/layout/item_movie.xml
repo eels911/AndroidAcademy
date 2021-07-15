@@ -7,7 +7,7 @@
     android:layout_margin="6dp"
     android:background="#191926"
     android:elevation="2dp"
-    tools:context="com.example.lesson5.MainActivity">
+    tools:context=".MainActivity">
 
     <ImageView
         android:id="@+id/iv_banner"
