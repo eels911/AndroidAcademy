@@ -21,24 +21,23 @@ class FragmentMoviesDetails() : Fragment(R.layout.fragment_movies_details) {
     private val tvFilm: TextView by lazy { requireView().findViewById<TextView>(R.id.tv_movie_name) }
     private val tvGenre: TextView by lazy { requireView().findViewById<TextView>(R.id.tv_movie_tags) }
     private val rating: RatingBar by lazy { requireView().findViewById<RatingBar>(R.id.rating) }
-    private val image: ImageView by lazy { requireView().findViewById<ImageView>(R.id.iv_top_background) }
     private val tvNumReviews: TextView by lazy { requireView().findViewById<TextView>(
         R.id.tv_movie_reviews_count
     ) }
-    private val actorsAdapter: ActorListAdapter by lazy { ActorListAdapter(requireContext()) }
     private val tvStoryLne: TextView by lazy { requireView().findViewById<TextView>(
         R.id.tv_movie_storyline
     ) }
-
+    private val tvBack: TextView by lazy { requireView().findViewById<TextView>(R.id.tv_back) }
+    private val image: ImageView by lazy { requireView().findViewById<ImageView>(R.id.iv_top_background) }
+    private val actorsAdapter: ActorListAdapter by lazy { ActorListAdapter(requireContext()) }
 
     private val rvActors: RecyclerView by lazy {
         requireView().findViewById<RecyclerView>(R.id.rv_actor).apply {
-
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
         }
     }
 
-    private val tvBack: TextView by lazy { requireView().findViewById<TextView>(R.id.tv_back) }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

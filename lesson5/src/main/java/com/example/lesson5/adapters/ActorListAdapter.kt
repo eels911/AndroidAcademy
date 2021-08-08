@@ -19,9 +19,7 @@ class ActorListAdapter(context: Context) : RecyclerView.Adapter<ActorListAdapter
     private val inflater: LayoutInflater = LayoutInflater.from(context)
 
     private var actors: List<Actor> = listOf()
-
-
-
+    
     fun setList(newActors: List<Actor>) {
         this.actors = newActors
         notifyDataSetChanged()

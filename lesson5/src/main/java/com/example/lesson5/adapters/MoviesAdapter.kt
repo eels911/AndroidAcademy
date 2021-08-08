@@ -25,13 +25,13 @@ class MoviesAdapter(
     private var movies: List<Movie> = listOf()
     private val inflater: LayoutInflater = LayoutInflater.from(context)
 
+    private fun getItem(position: Int): Movie = movies[position]
 
     fun update(newList: List<Movie>) {
         movies = newList
         notifyDataSetChanged()
     }
 
-    private fun getItem(position: Int): Movie = movies[position]
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderMovie {
         return ViewHolderMovie(inflater.inflate(R.layout.item_movie, parent, false))
@@ -49,15 +49,13 @@ class MoviesAdapter(
         private val name: TextView = itemView.findViewById(R.id.tv_film_name_text)
         private val age: TextView = itemView.findViewById(R.id.tv_film_number)
         private val duration: TextView = itemView.findViewById(R.id.tv_film_time_text)
-        private val numReviews: TextView = itemView.findViewById(R.id.tv_film_time_text)
+        private val numReviews: TextView = itemView.findViewById(R.id.tv_movie_reviews_count)
         private val rating: RatingBar = itemView.findViewById(R.id.rating)
         private val favorite: ImageView = itemView.findViewById(R.id.iv_favorite_icon)
 
         init {
             itemView.setOnClickListener(this)
         }
-
-
 
         fun bind(movie: Movie) {
             setViews(movie)
@@ -93,7 +91,6 @@ class MoviesAdapter(
             )
         }
     }
-
 
     interface OnMovieListener {
         fun onClickMovie(movie: Movie)
