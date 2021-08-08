@@ -1,4 +1,4 @@
-package com.example.lesson5
+package com.example.lesson5.data
 
 import kotlinx.serialization.Serializable
 

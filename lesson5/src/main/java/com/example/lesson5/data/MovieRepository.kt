@@ -1,8 +1,6 @@
 package com.example.lesson5.data
 
 import android.content.Context
-import com.example.lesson5.JsonActor
-import com.example.lesson5.JsonGenre
 import com.example.lesson5.JsonMovie
 import com.example.lesson5.model.Actor
 import com.example.lesson5.model.Genre

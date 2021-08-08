@@ -7,7 +7,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.lesson4.R
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
+import com.example.lesson5.model.Actor
 
 class ActorListAdapter(context: Context) : RecyclerView.Adapter<ActorListAdapter.ViewHolderActor>() {
 
@@ -44,7 +48,13 @@ class ActorListAdapter(context: Context) : RecyclerView.Adapter<ActorListAdapter
         //Do everytime
         fun bind(actor: Actor) {
             genres.text = actor.name
-            image.setImageResource(actor.image)
+            val requestOptions = RequestOptions().apply{
+                transform(CenterCrop(), RoundedCorners(20))
+            }
+            Glide.with(image.context)
+                .load(actor.imageUrl)
+                .apply(requestOptions)
+                .into(image)
         }
     }
 }

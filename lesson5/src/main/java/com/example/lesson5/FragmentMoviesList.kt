@@ -5,22 +5,21 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.lesson4.R
+import com.example.lesson5.model.Movie
+
 
 class FragmentMoviesList : Fragment(R.layout.fragment_movies_list) {
 
-    private val moviesAdapter: MoviesAdapter by lazy {
-        MoviesAdapter(requireContext(), movieDetails).apply {
-            update(generateMovies(requireContext()))
-        }
-    }
 
 
+    companion object { const val MOVIE = "movie" }
     private val rvMovies: RecyclerView by lazy {
         requireView().findViewById<RecyclerView>(R.id.rv_movies).apply {
             layoutManager = GridLayoutManager(context, 2)
         }
     }
+    private val moviesAdapter: MoviesAdapter by lazy {
+        MoviesAdapter(requireContext(), movieDetails)}
 
 
     private val movieDetails = object :
