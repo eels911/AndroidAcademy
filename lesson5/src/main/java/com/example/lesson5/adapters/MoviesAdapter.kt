@@ -1,4 +1,4 @@
-package com.example.lesson5
+package com.example.lesson5.adapters
 
 import android.content.Context
 import android.util.Log

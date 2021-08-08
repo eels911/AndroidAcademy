@@ -1,5 +1,6 @@
 package com.example.lesson5.data
 
+import android.annotation.SuppressLint
 import android.content.Context
 import com.example.lesson5.JsonMovie
 import com.example.lesson5.model.Actor
@@ -15,10 +16,13 @@ interface MovieRepository {
     suspend fun loadMovie(movieId: Int): Movie?
 }
 
-internal class JsonMovieRepository(private val context: Context) : MovieRepository {
+@SuppressLint("StaticFieldLeak")
+object MovieRepositoryImpl : MovieRepository {
     private val jsonFormat = Json { ignoreUnknownKeys = true }
+    private var context: Context? = null
 
     private var movies: List<Movie>? = null
+
 
     override suspend fun loadMovies(): List<Movie> = withContext(Dispatchers.IO) {
         val cachedMovies = movies
@@ -30,6 +34,15 @@ internal class JsonMovieRepository(private val context: Context) : MovieReposito
             moviesFromJson
         }
     }
+
+    fun init(context: Context) {
+        this.context = context
+    }
+
+    fun release() {
+        context = null
+    }
+
 
     private suspend fun loadMoviesFromJsonFile(): List<Movie> {
         val genresMap = loadGenres()
@@ -46,9 +59,9 @@ internal class JsonMovieRepository(private val context: Context) : MovieReposito
     }
 
     private fun readAssetFileToString(fileName: String): String {
-        val stream = context.assets.open(fileName)
-        return stream.bufferedReader().readText()
+        return context?.assets?.open(fileName)?.bufferedReader()?.readText() ?: "{}"
     }
+
 
     private suspend fun loadActors(): List<Actor> = withContext(Dispatchers.IO) {
         val data = readAssetFileToString("people.json")
