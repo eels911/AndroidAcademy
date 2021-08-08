@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
+    android:overScrollMode="never"
     tools:context=".MainActivity">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,14 +17,13 @@
             android:layout_height="0dp"
             android:orientation="vertical"
             app:layout_constraintGuide_begin="16dp"
-            app:layout_constraintStart_toStartOf="parent" />
+            />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_root_right"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintGuide_end="16dp" />
 
         <ImageView
@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
             android:gravity="center"
-            android:text="+13"
+            android:text="@string/ages"
             android:textColor="@color/white"
             android:textSize="12sp"
             android:textStyle="bold"
@@ -74,7 +74,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="254dp"
-            android:text="Avengers:\nEnd Game"
+            android:text="@string/avengers_nend_game"
             android:textColor="@color/white"
             android:textSize="40sp"
             android:textStyle="bold"
@@ -86,7 +86,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Action,Adventure, Fantasy"
+            android:text="@string/action_adventure_fantasy"
             android:textColor="#FF3466"
             android:textSize="14sp"
             app:layout_constraintEnd_toStartOf="@+id/guideline_root_right"
@@ -116,7 +116,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
-            android:text="125 reviews"
+            android:text="@string/reviews"
             android:textAllCaps="true"
             android:textColor="#6D6D80"
             android:textSize="14sp"
@@ -143,7 +143,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="After the devastating events of Avengers: Infinity War, the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos' actions and restore balance to the universe."
+            android:text="@string/after_the_devastating_events_of_avengers_infinity_war_the_universe_is_in_ruins_with_the_help_of_remaining_allies_the_avengers_assemble_once_more_in_order_to_reverse_thanos_actions_and_restore_balance_to_the_universe"
             android:textColor="@color/white"
             android:textSize="14sp"
             app:layout_constraintEnd_toStartOf="@+id/guideline_root_right"

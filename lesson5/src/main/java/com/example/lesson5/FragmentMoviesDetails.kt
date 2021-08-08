@@ -17,7 +17,7 @@ import com.example.lesson5.model.Movie
 
 
 class FragmentMoviesDetails() : Fragment(R.layout.fragment_movies_details) {
-    private val tvAge: TextView by lazy { requireView().findViewById<TextView>(R.id.tv_back) }
+    private val tvAge: TextView by lazy { requireView().findViewById<TextView>(R.id.tv_desc) }
     private val tvFilm: TextView by lazy { requireView().findViewById<TextView>(R.id.tv_movie_name) }
     private val tvGenre: TextView by lazy { requireView().findViewById<TextView>(R.id.tv_movie_tags) }
     private val rating: RatingBar by lazy { requireView().findViewById<RatingBar>(R.id.rating) }
@@ -43,7 +43,7 @@ class FragmentMoviesDetails() : Fragment(R.layout.fragment_movies_details) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (arguments?.get(FragmentMoviesList.MOVIE) as? com.example.lesson5.model.Movie)?.run {
+        (arguments?.get(FragmentMoviesList.MOVIE) as? Movie)?.run {
             setViews(this)
             setGlide(this)
             setAdapter(this)
@@ -53,7 +53,7 @@ class FragmentMoviesDetails() : Fragment(R.layout.fragment_movies_details) {
         }
 
     }
-    private fun setViews(movie: com.example.lesson5.model.Movie) {
+    private fun setViews(movie: Movie) {
         tvAge.text = movie.pgAge.toString().plus("+")
         tvFilm.text = movie.title
         tvGenre.text = movie.genres.joinToString(separator = ", ") { it.name }
@@ -61,7 +61,7 @@ class FragmentMoviesDetails() : Fragment(R.layout.fragment_movies_details) {
         tvNumReviews.text = movie.reviewCount.toString().plus(" REVIEWS")
         tvStoryLne.text = movie.storyLine
     }
-    private fun setGlide(movie: com.example.lesson5.model.Movie) {
+    private fun setGlide(movie: Movie) {
         val requestOptions = RequestOptions().apply {
             transform(CenterCrop(), RoundedCorners(16))
         }
