@@ -2,7 +2,6 @@ package com.example.lesson5.data
 
 import android.annotation.SuppressLint
 import android.content.Context
-import com.example.lesson5.JsonMovie
 import com.example.lesson5.model.Actor
 import com.example.lesson5.model.Genre
 import com.example.lesson5.model.Movie
