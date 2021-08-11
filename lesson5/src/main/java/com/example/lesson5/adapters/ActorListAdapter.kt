@@ -1,4 +1,4 @@
-package com.example.lesson5
+package com.example.lesson5.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,16 +7,19 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.lesson4.R
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
+import com.example.lesson5.R
+import com.example.lesson5.model.Actor
 
 class ActorListAdapter(context: Context) : RecyclerView.Adapter<ActorListAdapter.ViewHolderActor>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
 
     private var actors: List<Actor> = listOf()
-
-
-
+    
     fun setList(newActors: List<Actor>) {
         this.actors = newActors
         notifyDataSetChanged()
@@ -44,7 +47,13 @@ class ActorListAdapter(context: Context) : RecyclerView.Adapter<ActorListAdapter
         //Do everytime
         fun bind(actor: Actor) {
             genres.text = actor.name
-            image.setImageResource(actor.image)
+            val requestOptions = RequestOptions().apply{
+                transform(CenterCrop(), RoundedCorners(20))
+            }
+            Glide.with(image.context)
+                .load(actor.imageUrl)
+                .apply(requestOptions)
+                .into(image)
         }
     }
 }
