@@ -42,7 +42,7 @@ class FragmentMoviesDetails() : Fragment(R.layout.fragment_movies_details) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (arguments?.get(FragmentMoviesList.MOVIE) as? Movie)?.run {
+        (arguments?.get(MOVIE) as? Movie)?.run {
             setViews(this)
             setGlide(this)
             setAdapter(this)
