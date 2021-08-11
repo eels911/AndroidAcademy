@@ -43,7 +43,7 @@ class MoviesAdapter(
 
     override fun getItemCount(): Int = movies.size
 
-    inner class ViewHolderMovie(v: View) : RecyclerView.ViewHolder(v), View.OnClickListener {
+    inner class ViewHolderMovie(v: View) : RecyclerView.ViewHolder(v) {
         private val image: ImageView = itemView.findViewById(R.id.iv_banner)
         private val genres: TextView = itemView.findViewById(R.id.tv_film_desc)
         private val name: TextView = itemView.findViewById(R.id.tv_film_name_text)
@@ -53,8 +53,19 @@ class MoviesAdapter(
         private val rating: RatingBar = itemView.findViewById(R.id.rating)
         private val favorite: ImageView = itemView.findViewById(R.id.iv_favorite_icon)
 
+        val clickListener = object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                val pos = adapterPosition
+                Log.d("---------", "Click")
+
+                if (pos != RecyclerView.NO_POSITION) {
+                    listener.onClickMovie(getItem(pos))
+                }
+            }
+        }
+
         init {
-            itemView.setOnClickListener(this)
+            itemView.setOnClickListener(clickListener)
         }
 
         fun bind(movie: Movie) {
@@ -67,13 +78,6 @@ class MoviesAdapter(
                 .load(movie.imageUrl)
                 .apply(requestOptions)
                 .into(image)
-        }
-        override fun onClick(v: View?) {
-            val pos = adapterPosition
-
-            if (pos != RecyclerView.NO_POSITION) {
-                listener.onClickMovie(getItem(pos))
-            }
         }
         private fun setViews(movie: com.example.lesson5.model.Movie) {
             genres.text = movie.genres.joinToString(separator = ", ") { it.name }

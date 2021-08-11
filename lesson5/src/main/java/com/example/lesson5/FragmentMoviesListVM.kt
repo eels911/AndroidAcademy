@@ -11,7 +11,6 @@ import kotlinx.coroutines.launch
 
 class FragmentMoviesListVM: ViewModel() {
     var moviesListLiveData: MutableLiveData<List<Movie>> = MutableLiveData()
-        private set
 
     fun makeApiCall() {
         CoroutineScope(viewModelScope.coroutineContext).launch {

@@ -16,7 +16,7 @@ class FragmentMoviesList : Fragment(R.layout.fragment_movies_list) {
     }
 
 
-    companion object { const val MOVIE = "movie" }
+
     private val rvMovies: RecyclerView by lazy {
         requireView().findViewById<RecyclerView>(R.id.rv_movies).apply {
             layoutManager = GridLayoutManager(context, 2)
