@@ -1,8 +1,9 @@
-package com.example.lesson5
+package com.example.lesson5.view
 
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.lesson5.R
 import com.example.lesson5.data.MovieRepositoryImpl
 
 
@@ -28,7 +29,6 @@ class MainActivity : AppCompatActivity() {
     }
     override fun onDestroy() {
         super.onDestroy()
-
 
         MovieRepositoryImpl.release()
     }
