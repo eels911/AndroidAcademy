@@ -1,4 +1,4 @@
-package com.example.lesson5
+package com.example.lesson5.view
 
 import android.os.Bundle
 import android.view.View
@@ -6,17 +6,24 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import com.example.lesson5.constants.MOVIE
+import com.example.lesson5.R
 import com.example.lesson5.adapters.ActorListAdapter
 import com.example.lesson5.model.Movie
+import com.example.lesson5.viewmodel.FragmentMovieDetailsVM
 
 
 class FragmentMoviesDetails() : Fragment(R.layout.fragment_movies_details) {
+    private val fragmentDetailsVM: FragmentMovieDetailsVM by lazy{
+        ViewModelProvider(this).get(FragmentMovieDetailsVM::class.java)
+    }
     private val tvAge: TextView by lazy { requireView().findViewById<TextView>(R.id.tv_desc) }
     private val tvFilm: TextView by lazy { requireView().findViewById<TextView>(R.id.tv_movie_name) }
     private val tvGenre: TextView by lazy { requireView().findViewById<TextView>(R.id.tv_movie_tags) }
@@ -42,15 +49,18 @@ class FragmentMoviesDetails() : Fragment(R.layout.fragment_movies_details) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (arguments?.get(MOVIE) as? Movie)?.run {
-            setViews(this)
-            setGlide(this)
-            setAdapter(this)
-        }
+        val id = arguments?.getInt(MOVIE) ?: 0
+        fragmentDetailsVM.loadDetails(id)
+
         tvBack.setOnClickListener {
             requireActivity().onBackPressed()
         }
-
+        // получаем данные из LiveData
+        fragmentDetailsVM.movieListLiveData.observe(this, {
+            setViews(it)
+            setGlide(it)
+            setAdapter(it)
+        })
     }
     private fun setViews(movie: Movie) {
         tvAge.text = movie.pgAge.toString().plus("+")
