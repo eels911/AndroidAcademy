@@ -7,7 +7,7 @@ import okhttp3.Response
 
 class ApiKeyInterceptor: Interceptor {
 
-
+    var API_KEY = BuildConfig.API_KEY
     override fun intercept(chain: Interceptor.Chain): Response {
         val origin = chain.request()
         val urlBuilder = origin.url.newBuilder()
