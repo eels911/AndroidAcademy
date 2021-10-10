@@ -1,4 +1,4 @@
-package com.example.lesson5.adapters
+package com.example.lesson7.adapters
 
 import android.content.Context
 import android.util.Log
@@ -14,8 +14,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
-import com.example.lesson5.R
-import com.example.lesson5.model.Movie
+import com.example.lesson7.R
+import com.example.lesson7.model.Movie
 
 class MoviesAdapter(
     private val context: Context,
@@ -23,15 +23,10 @@ class MoviesAdapter(
 ) : RecyclerView.Adapter<MoviesAdapter.ViewHolderMovie>() {
 
     private var movies: List<Movie> = listOf()
+
     private val inflater: LayoutInflater = LayoutInflater.from(context)
 
     private fun getItem(position: Int): Movie = movies[position]
-
-    fun update(newList: List<Movie>) {
-        movies = newList
-        notifyDataSetChanged()
-    }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderMovie {
         return ViewHolderMovie(inflater.inflate(R.layout.item_movie, parent, false))
@@ -41,9 +36,14 @@ class MoviesAdapter(
         holder.bind(getItem(position))
     }
 
+    fun refresh(moviesList: List<Movie>) {
+        movies = moviesList
+        notifyDataSetChanged()
+    }
+
     override fun getItemCount(): Int = movies.size
 
-    inner class ViewHolderMovie(v: View) : RecyclerView.ViewHolder(v){
+    inner class ViewHolderMovie(v: View) : RecyclerView.ViewHolder(v) {
         private val image: ImageView = itemView.findViewById(R.id.iv_banner)
         private val genres: TextView = itemView.findViewById(R.id.tv_film_desc)
         private val name: TextView = itemView.findViewById(R.id.tv_film_name_text)
@@ -79,13 +79,13 @@ class MoviesAdapter(
                 .into(image)
         }
 
-        private fun setViews(movie: com.example.lesson5.model.Movie) {
+        private fun setViews(movie: com.example.lesson7.model.Movie) {
             genres.text = movie.genres.joinToString(separator = ", ") { it.name }
             name.text = movie.title
             age.text = movie.pgAge.toString().plus("+")
             duration.text = movie.runningTime.toString().plus(" MIN")
-            numReviews.text = movie.reviewCount.toString().plus(" REVIEWS")
-            rating.rating = movie.rating.toFloat() / 2
+            numReviews.text = movie.reviewCount.toString().plus("K REVIEWS")
+            rating.rating = movie.rating
             favorite.setColorFilter(
                 if (movie.isLiked) {
                     ContextCompat.getColor(context, R.color.pink)
@@ -99,10 +99,4 @@ class MoviesAdapter(
     interface OnMovieListener {
         fun onClickMovie(movie: Movie)
     }
-
 }
-
-
-
-
-

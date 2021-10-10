@@ -1,4 +1,4 @@
-package com.example.lesson5.view
+package com.example.lesson7.view
 
 import android.os.Bundle
 import android.view.View
@@ -13,16 +13,17 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
-import com.example.lesson5.constants.MOVIE
-import com.example.lesson5.R
-import com.example.lesson5.adapters.ActorListAdapter
-import com.example.lesson5.model.Movie
-import com.example.lesson5.viewmodel.FragmentMovieDetailsVM
+import com.example.lesson7.constants.MOVIE
+import com.example.lesson7.R
+import com.example.lesson7.adapters.ActorListAdapter
+import com.example.lesson7.model.Movie
+import com.example.lesson7.model.MovieDetails
+import com.example.lesson7.viewmodel.FragmentMoviesDetailsVM
 
 
-class FragmentMoviesDetails() : Fragment(R.layout.fragment_movies_details) {
-    private val fragmentDetailsVM: FragmentMovieDetailsVM by lazy{
-        ViewModelProvider(this).get(FragmentMovieDetailsVM::class.java)
+class FragmentMoviesDetails : Fragment(R.layout.fragment_movies_details) {
+    private val fragmentDetailsVM: FragmentMoviesDetailsVM by lazy {
+        ViewModelProvider(this).get(FragmentMoviesDetailsVM::class.java)
     }
     private val tvAge: TextView by lazy { requireView().findViewById<TextView>(R.id.tv_desc) }
     private val tvFilm: TextView by lazy { requireView().findViewById<TextView>(R.id.tv_movie_name) }
@@ -44,33 +45,34 @@ class FragmentMoviesDetails() : Fragment(R.layout.fragment_movies_details) {
         }
     }
 
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val id = arguments?.getInt(MOVIE) ?: 0
+        val id = arguments?.getInt(FragmentMoviesList.MOVIE_ID) ?: 0
+
         fragmentDetailsVM.loadDetails(id)
 
         tvBack.setOnClickListener {
             requireActivity().onBackPressed()
         }
-        // получаем данные из LiveData
-        fragmentDetailsVM.movieListLiveData.observe(this, {
+
+        fragmentDetailsVM.movieDetailsLiveData.observe(this, {
             setViews(it)
             setGlide(it)
             setAdapter(it)
         })
     }
-    private fun setViews(movie: Movie) {
+
+    private fun setViews(movie: MovieDetails) {
         tvAge.text = movie.pgAge.toString().plus("+")
         tvFilm.text = movie.title
         tvGenre.text = movie.genres.joinToString(separator = ", ") { it.name }
-        rating.rating = movie.rating.toFloat() / 2
-        tvNumReviews.text = movie.reviewCount.toString().plus(" REVIEWS")
+        rating.rating = movie.rating
         tvStoryLne.text = movie.storyLine
+        tvNumReviews.text = movie.reviewCount.toString().plus(" REVIEWS")
     }
-    private fun setGlide(movie: Movie) {
+
+    private fun setGlide(movie: MovieDetails) {
         val requestOptions = RequestOptions().apply {
             transform(CenterCrop(), RoundedCorners(16))
         }
@@ -80,8 +82,10 @@ class FragmentMoviesDetails() : Fragment(R.layout.fragment_movies_details) {
             .apply(requestOptions)
             .into(image)
     }
-    private fun setAdapter(movie: Movie) {
+
+    private fun setAdapter(movie: MovieDetails) {
         actorsAdapter.setList(movie.actors)
         rvActors.adapter = actorsAdapter
     }
+
 }

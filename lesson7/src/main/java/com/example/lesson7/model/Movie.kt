@@ -1,4 +1,4 @@
-package com.example.lesson5.model
+package com.example.lesson7.model
 
 import java.io.Serializable
 
@@ -10,9 +10,6 @@ data class Movie(
     val runningTime: Int,
     val reviewCount: Int,
     val isLiked: Boolean,
-    val rating: Int,
-    val imageUrl: String,
-    val detailImageUrl: String,
-    val storyLine: String,
-    val actors: List<Actor>,
+    val rating: Float,
+    val imageUrl: String?,
 ) : Serializable
